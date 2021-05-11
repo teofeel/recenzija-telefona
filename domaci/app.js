@@ -14,29 +14,9 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
 
 
 const app = express();
-app.use(bodyParser.urlencoded({extended : true}));
+app.use(bodyParser.urlencoded({extended : true})); //za uzimanje podataka sa html
 app.use(bodyParser.json());
-app.set("view engine", "ejs");
-
-app.get('/add-phone', (req,res)=>{
-    const phone = new Phone({
-        name: "Iphone 11 Pro Max",
-        review: "Tekst neki",
-        specs:{
-            displej: ["Super Retina XDR OLED, HDR10", "6.5 inches, 102.9 cm2 (~83.7% screen-to-body ratio)", "1242 x 2688 pixels, 19.5:9 ratio", "Scratch-resistant glass, oleophobic coating"],
-            platforma: ["iOS 13, upgradable to iOS 14","Chipset - Apple A13 Bionic (7 nm+)","CPU -Hexa-core (2x2.65 GHz Lightning + 4x1.8 GHz Thunder)","GPU- Apple GPU (4-core graphics)"],
-            memorija: ["Interna memorija - 64GB/4GB RAM, 256GB/4GB RAM, 512GB/4GB RAM"],
-            kamera: ["Zadnja kamera - 12 MP, f/1.8, 26mm (wide)","12 MP, f/2.0, 52mm (telephoto)","12 MP, f/2.4, 13mm (ultrawide)","Prednja kamera - 12 MP, f/2.2, 23mm (wide)","Video - 4K@24/30/60fps, 1080p@30/60/120/240fps, HDR"],
-            baterija: ["Li-Ion 3969 mAh","Fast charging 18W, 50% u 30 min"]
-        },
-        comments:[
-            {name:"Neki Lik", comment:"Dobar fon", grade: 5, likes:10, dislikes:4}
-        ]
-    });
-
-    phone.save();
-    res.redirect('/');
-});
+app.set("view engine", "ejs"); //ejs templati
 
 app.get('/',(req,res)=>{
     Phone.find({}, function(err, phones) {
@@ -45,7 +25,7 @@ app.get('/',(req,res)=>{
             let idd = {id: phones[i]._id, name: phones[i].name};
             id.push(idd);
         }
-        res.render('index', { ids:id });
+        res.render('index', { ids:id }); //ucitavamo sve telefone z baze 
     });
 });
 
@@ -75,15 +55,19 @@ app.get(`/phone/:id`, (req,res)=>{
             commentss.push(comment);
         }
         averagee/=br;
-        res.render('phone',{phoneID:id, name: phone.name, paragraph: phone.review, specs_display: specs_d, specs_plat:specs_p, specs_mem:specs_m, specs_cam:specs_k, specs_battery:specs_b, comments:commentss, average:averagee});
+        res.render('phone',{phoneID:id, name: phone.name, paragraph: phone.review, specs_display: specs_d, specs_plat:specs_p, specs_mem:specs_m, specs_cam:specs_k, specs_battery:specs_b, comments:commentss, average:averagee, video: phone.video}); //upisivanje podataka u phone.ejs template
     });
 });
 
+app.get('/go-back', (req,res)=>{
+    res.redirect('/');
+});
+
 app.post('/like/:phoneID/:comID',  (req,res)=>{
-    var comID = req.params.comID;
+    var comID = req.params.comID; 
     var phoneID = req.params.phoneID;
 
-    Phone.findOneAndUpdate({"_id": phoneID, "comments._id": comID},{$inc: {"comments.$.likes": 1}}, (err,result)=>{});
+    Phone.findOneAndUpdate({"_id": phoneID, "comments._id": comID},{$inc: {"comments.$.likes": 1}}, (err,result)=>{}); //povecava broj lajkova za 1
 
     res.redirect(`/phone/${phoneID}`);
 });
@@ -92,7 +76,7 @@ app.post('/dislike/:phoneID/:comID',  (req,res)=>{
     var comID = req.params.comID;
     var phoneID = req.params.phoneID;
     
-    Phone.findOneAndUpdate({"_id": phoneID, "comments._id": comID},{$inc: {"comments.$.dislikes": 1}}, (err,result)=>{});
+    Phone.findOneAndUpdate({"_id": phoneID, "comments._id": comID},{$inc: {"comments.$.dislikes": 1}}, (err,result)=>{}); //povecava broj dislajkova za 1
 
     res.redirect(`/phone/${phoneID}`);
 });
@@ -114,10 +98,10 @@ app.post('/new-comment/:phoneID', (req,res)=>{
               } else {
                   console.log(success);
               }
-        });
+        }); //dodaje novi komentar u telefon, pronadje broj id telefona u bazi i u njegove komentare doda komentar
     
 
-    res.redirect(`/phone/${phoneID}`);
+    res.redirect(`/phone/${phoneID}`); //vrati na stranicu telefona
 });
 
 app.get('/admin/:password', (req,res)=>{
@@ -125,12 +109,13 @@ app.get('/admin/:password', (req,res)=>{
     if(password!='test123'){
         res.redirect('/');
     }
-    res.render('admin');
+    res.render('admin'); //admin stranica, sluzi za dodavanje novih telefona, pristup samo ako se sifra unese u url
 });
 
 app.post('/new-phone',(req,res)=>{
     var name1 = req.body.name;
     var review1 = req.body.review;
+    var video1 = req.body.video;
     var d = req.body.displej;
     var p = req.body.platforma;
     var m = req.body.memorija;
@@ -146,6 +131,7 @@ app.post('/new-phone',(req,res)=>{
     var Telefon = new Phone({
         name: name1, 
         review: review1, 
+        video: video1,
         specs:{
             displej: displej1,
             platforma: platforma1,
@@ -156,8 +142,8 @@ app.post('/new-phone',(req,res)=>{
         comments:[]
     });
 
-    Telefon.save();
+    Telefon.save(); //dodaje novi telefon u bazu
 
-    res.redirect('/');
+    res.redirect('/'); 
 });
 

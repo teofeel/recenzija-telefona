@@ -13,13 +13,17 @@ const PhoneSchema = new Schema({
         type:String,
         required:true
     },
+    video:{
+        type:String,
+        required: false
+    },
     specs:{
-        type: SpecSchema,
+        type: SpecSchema, //subdocument 
         required: true
     },
     comments:[
         {
-            type: CommentSchema,
+            type: CommentSchema, //subdocument
             required: false
         }
     ]

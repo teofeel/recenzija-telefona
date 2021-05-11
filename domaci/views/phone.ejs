@@ -1,0 +1,173 @@
+<html lang="en" dir="ltr">
+    <head>
+        <title><%=name%> | Domaci</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <style>
+        .rejting{
+            position: absolute;
+            top: auto;
+            left: auto;
+            transform: translate(auto,auto);
+            transform: rotateY(180deg);
+            display: flex;
+            margin-bottom: 50px;
+        }
+
+        .rejting input{
+            display: none;
+        }
+
+        .rejting label{
+            display: block;
+            cursor: pointer;
+            width: 50px;
+            /*background: #ccc;*/
+        }
+
+        .rejting label:before{
+            content: '\f005';
+            font-family: fontAwesome;
+            position: relative;
+            display: block;
+            font-size: 30px;
+            color: #101010;
+        }
+
+        .rejting label:after{
+            content: '\f005';
+            font-family: fontAwesome;
+            position: absolute;
+            display: block;
+            font-size: 30px;
+            color: #1f9cff;
+            top: 0;
+            opacity: 0;
+            transition: .5s;
+            text-shadow: 0 2px 5px rgba(0,0,0,.5);
+        }
+        .rejting label:hover:after,
+        .rejting label:hover ~ label:after,
+        .rejting input:checked ~ label:after{
+            opacity: 1;
+        }
+        </style>
+    </head>
+    <body>
+        <h1><%=name%></h1>
+
+        <p><%=paragraph%></p>
+        <br>
+        <h2>Specifikacije</h2>
+        <div class="specs">
+            <div class="disp">
+                <h3>Displej</h3>
+                <aside>
+                    <ul>
+                        <% for(spec in specs_display){ %>
+                            <li><%=specs_display[spec]%></li>
+                        <%}%>
+                    </ul>
+                </aside>
+            </div>
+            <div class="disp">
+                <h3>Platforma</h3>
+                <aside>
+                    <ul>
+                        <% for(spec in specs_plat){ %>
+                            <li><%=specs_plat[spec]%></li>
+                        <%}%>
+                    </ul>
+                </aside>
+            </div>
+            <div class="disp">
+                <h3>Memorija</h3>
+                <aside>
+                    <ul>
+                        <% for(spec in specs_mem){ %>
+                            <li><%=specs_mem[spec]%></li>
+                        <%}%>
+                    </ul>
+                </aside>
+            </div>
+            <div class="disp">
+                <h3>Kamera</h3>
+                <aside>
+                    <ul>
+                        <% for(spec in specs_cam){ %>
+                            <li><%=specs_cam[spec]%></li>
+                        <%}%>
+                    </ul>
+                </aside>
+            </div>
+            <div class="disp">
+                <h3>Baterija</h3>
+                <aside>
+                    <ul>
+                        <% for(spec in specs_battery){ %>
+                            <li><%=specs_battery[spec]%></li>
+                        <%}%>
+                    </ul>
+                </aside>
+            </div>
+        </div>
+
+        <h2>Komentari</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Ime</th>
+                    <th>Komentar</th>
+                    <th>Ocena</th>
+                    <th>Broj Lajkova</th>
+                    <th>Broj Dislajkova</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(c in comments){  %>
+                    <tr>
+                        <td><%=comments[c].name%></td>
+                        <td><%=comments[c].comment%></td>
+                        <td><%=comments[c].grade%></td>
+                        <td><%=comments[c].likes%></td>
+                        <td><%=comments[c].dislikes%></td>
+                        <td><form action="/like/<%=phoneID%>/<%=comments[c].id%>" method="post">
+                            <input type="submit" value="Like">
+                        </form></td>
+                        <td><form action="/dislike/<%=phoneID%>/<%=comments[c].id%>" method="post">
+                            <input type="submit" value="Dislike">
+                        </form></td>
+                    </tr>
+                <%} %>
+            </tbody>
+        </table>
+
+        <h3>Dodaj komentar</h3>
+        <form action="/new-comment/<%=phoneID%>" method="post">
+            <p>Ime</p>
+            <input type = "text" name="name" required>
+            <p>Komentar</p>
+            <input type = "text" name="comment" required>
+            <p>Ocena</p>
+
+            <div  class="rejting">
+                <input type="radio" name="star" value=5 id="star1"><label for="star1">
+                </label>
+                <input type="radio" name="star" value=4 id="star2"><label for="star2">
+                </label>
+                <input type="radio" name="star" value=3 id="star3"><label for="star3">
+                </label>
+                <input type="radio" name="star" value=2 id="star4"><label for="star4">
+                </label>
+                <input type="radio" name="star" value=1 id="star5"><label for="star5">
+                </label>
+            </div>
+            <br>
+            <br>
+            <input type="submit">
+        </form>
+        <h2>Prosecna ocena: <%=average%></h2>
+    </body>
+</html>

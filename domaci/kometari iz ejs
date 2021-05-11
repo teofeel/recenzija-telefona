@@ -1,0 +1,98 @@
+<!--<div class="specs">
+            <div class="disp">
+                <h3>Displej</h3>
+                <aside>
+                    <ul>
+                        <% for(spec in specs_display){ %>
+                            <li><%=spec.text%></li>
+                        <%}%>
+                    </ul>
+                </aside>
+            </div>
+            <div class="disp">
+                <h3>Platforma</h3>
+                <aside>
+                    <ul>
+                        <% for(spec in specs_plat){ %>
+                            <li><%=spec.text%></li>
+                        <%}%>
+                    </ul>
+                </aside>
+            </div>
+            <div class="disp">
+                <h3>Memorija</h3>
+                <aside>
+                    <ul>
+                        <% for(spec in specs_mem){ %>
+                            <li><%=spec.text%></li>
+                        <%}%>
+                    </ul>
+                </aside>
+            </div>
+            <div class="disp">
+                <h3>Kamera</h3>
+                <aside>
+                    <ul>
+                        <% for(spec in specs_cam){ %>
+                            <li><%=spec.text%></li>
+                        <%}%>
+                    </ul>
+                </aside>
+            </div>
+            <div class="disp">
+                <h3>Baterija</h3>
+                <aside>
+                    <ul>
+                        <% for(spec in specs_battery){ %>
+                            <li><%=spec.text%></li>
+                        <%}%>
+                    </ul>
+                </aside>
+            </div>
+        </div>--> //za phone.ejs
+
+    Phone.find()
+        .then((result)=>res.send(result))
+        .catch((err)=>console.log(err)); // app.js pronalazi telefone
+        //u index.ejs posaljemo __id telefona za dalji prelazak u phone.ejs/:__id
+
+
+    name:{
+        type:String,
+        required:true
+    },
+    review:{
+        type:String,
+        required:true
+    },
+    displej:[
+        {
+            type: String,
+            required: true
+        }
+    ],
+    platforma:[
+        {
+            type: String,
+            required: true
+        }
+    ],
+    memorija:[
+        {
+            type: String,
+            required: true
+        }
+    ],
+    kamera:[
+        {
+            type: String,
+            required: true
+        }
+    ],
+    baterija:[
+        {
+            type: String,
+            required: true
+        }
+    ] //mongoose schema
+        

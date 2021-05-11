@@ -1,0 +1,20 @@
+<html lang="en" dir="ltr">
+    <head>
+        <title>Domaci</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+
+    <body>
+        <h1>Phone Reviews</h1>
+
+        <div>
+            <% for(i of ids){ %>
+                <a href="/phone/<%=i.id%>"><%=i.name%></a>
+                <br>
+            <%} %>
+            
+        </div>
+        
+    </body>
+</html>

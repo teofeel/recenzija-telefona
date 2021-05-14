@@ -96,3 +96,48 @@
         }
     ] //mongoose schema
         
+
+<table>
+            <thead>
+                <tr>
+                    <th>Ime</th>
+                    <th>Komentar</th>
+                    <th>Ocena</th>
+                    <th>Broj Lajkova</th>
+                    <th>Broj Dislajkova</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(c in comments){  %>
+                    <tr>
+                        <td><%=comments[c].name%></td>
+                        <td><%=comments[c].comment%></td>
+                        <td><%=comments[c].grade%></td>
+                        <td><%=comments[c].likes%></td>
+                        <td><%=comments[c].dislikes%></td>
+                        <td><ul><% for(reply in comments[c].replies){ %>
+                            <li><%=comments[c].replies[reply]%></li>
+                        <%} %></ul></td>
+                        <td><form action="/like/<%=comments[c].id%>/<%=phoneID%>" method="post">
+                            <input type="submit" value="Like">
+                        </form></td>
+                        <td><form action="/dislike/<%=comments[c].id%>/<%=phoneID%>" method="post">
+                            <input type="submit" value="Dislike">
+                        </form></td>
+                        <td>
+                            <button id="reply">Reply</button>
+                            <div class = "hidden" id="comment-reply">
+                                <form action="/reply/<%=comments[c].id%>/<%=phoneID%>" method="post">
+                                    <p>Ime</p>
+                                    <input type = "text" name="replyname" required>
+                                    <p>Komentar</p>
+                                    <input type = "text" name="replycomment" required>
+                                    <br>
+                                    <input type="submit" value="Reply">
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                <%} %>
+            </tbody>
+        </table>

@@ -52,6 +52,10 @@
         .rejting input:checked ~ label:after{
             opacity: 1;
         }
+
+        .hidden{
+            display: none; 
+        }
         </style>
     </head>
     <body>
@@ -121,34 +125,50 @@
 
         <h2>Komentari</h2>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Ime</th>
-                    <th>Komentar</th>
-                    <th>Ocena</th>
-                    <th>Broj Lajkova</th>
-                    <th>Broj Dislajkova</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% for(c in comments){  %>
-                    <tr>
-                        <td><%=comments[c].name%></td>
-                        <td><%=comments[c].comment%></td>
-                        <td><%=comments[c].grade%></td>
-                        <td><%=comments[c].likes%></td>
-                        <td><%=comments[c].dislikes%></td>
-                        <td><form action="/like/<%=phoneID%>/<%=comments[c].id%>" method="post">
-                            <input type="submit" value="Like">
-                        </form></td>
-                        <td><form action="/dislike/<%=phoneID%>/<%=comments[c].id%>" method="post">
-                            <input type="submit" value="Dislike">
-                        </form></td>
-                    </tr>
-                <%} %>
-            </tbody>
-        </table>
+        <div class="iskustva">
+            <% for (c in comments) { %>
+                <div class="komentar">
+                    <h4>Ime</h4>
+                    <p><%=comments[c].name%></p>
+                    <h4>Komentar</h4>
+                    <p><%=comments[c].comment%></p>
+                    <h4>Ocena</h4>
+                    <p><%=comments[c].grade%></p>
+                    <h4>Broj Lajkova</h4>
+                    <p><%=comments[c].likes%></p>
+                    <h4>Broj dislajkova</h4>
+                    <p><%=comments[c].dislikes%></p>
+
+                    <td><form action="/like/<%=comments[c].id%>/<%=phoneID%>" method="post">
+                        <input type="submit" value="Like">
+                    </form></td>
+                    <td><form action="/dislike/<%=comments[c].id%>/<%=phoneID%>" method="post">
+                        <input type="submit" value="Dislike">
+                    </form></td>
+
+                    <div class="odgovori">
+                        <h4>Odgovor na komentar</h4>
+                        <%for(o in comments[c].replies){ %>
+                            <div class="odgovor">
+                                <p>Ime</p>
+                                <p><%=comments[c].replies[o].name%></p>
+                                <p>Odgovor</p>
+                                <p><%=comments[c].replies[o].comment%></p>
+                            </div>
+                        <%}%>
+
+                        <form action="/reply/<%=comments[c].id%>/<%=phoneID%>" method="post">
+                            <p>Ime</p>
+                            <input type = "text" name="replyName" required>
+                            <p>Komentar</p>
+                            <input type = "text" name="replyComment" required>
+                            <br>
+                            <input type="submit" value="Reply">
+                        </form>
+                    </div>
+                </div>
+            <%} %>
+        </div>
 
         <h3>Dodaj komentar</h3>
         <form action="/new-comment/<%=phoneID%>" method="post">
@@ -175,5 +195,6 @@
             <input type="submit">
         </form>
         <h2>Prosecna ocena: <%=average%></h2>
+
     </body>
 </html>

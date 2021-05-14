@@ -2,6 +2,17 @@ const express = require('express');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const ReplySchema = new Schema({
+    name:{
+        type:String,
+        required:true
+    },
+    comment:{
+        type:String,
+        required:true
+    }
+});
+
 const CommentSchema = new Schema({
     name:{
         type:String,
@@ -20,7 +31,11 @@ const CommentSchema = new Schema({
     },
     dislikes:{
         type: Number
-    }
+    },
+    replies:[{
+        type: ReplySchema,
+        required: false
+    }]
 });
 
 

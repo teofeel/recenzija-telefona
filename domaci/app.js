@@ -29,7 +29,7 @@ app.get('/',(req,res)=>{
     });
 });
 
-app.get(`/phone/:id`, (req,res)=>{
+app.get(`/:id/phone`, (req,res)=>{
     const {id} = req.params;
 
     Phone.findById(id, (err, phone)=>{
@@ -38,57 +38,47 @@ app.get(`/phone/:id`, (req,res)=>{
         var specs_m = phone.specs.memorija;
         var specs_k = phone.specs.kamera;
         var specs_b = phone.specs.baterija;
-        let averagee = 0;
+        
         let br=0;
 
-        var commentss = new Array();
-        for(c in phone.comments){
-            var comment_name = phone.comments[c].name;
-            var comment_c = phone.comments[c].comment;
-            var comment_grade = phone.comments[c].grade;
-            var comment_num_likes = phone.comments[c].likes;
-            var comment_num_dislikes = phone.comments[c].dislikes;
-            averagee+=comment_grade;
-            br++;
-
-            let comment = {id: phone.comments[c].id, name: comment_name, comment: comment_c, grade: comment_grade, likes: comment_num_likes, dislikes: comment_num_dislikes};
-            commentss.push(comment);
-        }
-        averagee/=br;
+        let commentss = phone.comments;
+        let averagee = commentss.reduce((total,next)=>total+next.grade, 0)/commentss.length;
         res.render('phone',{phoneID:id, name: phone.name, paragraph: phone.review, specs_display: specs_d, specs_plat:specs_p, specs_mem:specs_m, specs_cam:specs_k, specs_battery:specs_b, comments:commentss, average:averagee, video: phone.video}); //upisivanje podataka u phone.ejs template
-    });
+    })
+    .then((result)=>console.log(result))
+    .catch((err)=>console.log(err));
 });
 
 app.get('/go-back', (req,res)=>{
     res.redirect('/');
 });
 
-app.post('/like/:phoneID/:comID',  (req,res)=>{
+app.post('/like/:comID/:phoneID', async (req,res)=>{
     var comID = req.params.comID; 
     var phoneID = req.params.phoneID;
 
     Phone.findOneAndUpdate({"_id": phoneID, "comments._id": comID},{$inc: {"comments.$.likes": 1}}, (err,result)=>{}); //povecava broj lajkova za 1
 
-    res.redirect(`/phone/${phoneID}`);
+    res.redirect(`/${phoneID}/phone`);
 });
 
-app.post('/dislike/:phoneID/:comID',  (req,res)=>{
+app.post('/dislike/:comID/:phoneID', async (req,res)=>{
     var comID = req.params.comID;
     var phoneID = req.params.phoneID;
     
     Phone.findOneAndUpdate({"_id": phoneID, "comments._id": comID},{$inc: {"comments.$.dislikes": 1}}, (err,result)=>{}); //povecava broj dislajkova za 1
 
-    res.redirect(`/phone/${phoneID}`);
+    res.redirect(`/${phoneID}/phone`);
 });
 
-app.post('/new-comment/:phoneID', (req,res)=>{
+app.post('/new-comment/:phoneID', async (req,res)=>{
     var phoneID = req.params.phoneID;
 
     var name1 = req.body.name;
     var comment1 = req.body.comment;
     var grade1 = req.body.star;
 
-    var Comment = {name: name1, comment: comment1, grade: grade1, likes:0, dislikes:0};
+    var Comment = {name: name1, comment: comment1, grade: grade1, likes:0, dislikes:0, replies:[]};
     Phone.findOneAndUpdate(
         { _id: phoneID }, 
         { $push: { comments: Comment } },
@@ -101,8 +91,49 @@ app.post('/new-comment/:phoneID', (req,res)=>{
         }); //dodaje novi komentar u telefon, pronadje broj id telefona u bazi i u njegove komentare doda komentar
     
 
-    res.redirect(`/phone/${phoneID}`); //vrati na stranicu telefona
+        res.redirect(`/${phoneID}/phone`); //vrati na stranicu telefona
 });
+
+app.post('/reply/:comID/:phoneID', (req,res)=>{
+    var comID = req.params.comID;
+    var phoneID = req.params.phoneID;
+
+    var name1 = req.body.replyName;
+    var comment1 = req.body.replyComment;
+
+    console.log('ovde si');
+    var Reply = {name: name1, comment: comment1};
+
+    Phone.findOneAndUpdate(
+        {"_id": phoneID, "comments._id": comID},
+        {$push: {"comments.$.replies": Reply}}, 
+        (err,result)=>console.log(err));
+
+    res.redirect(`/${phoneID}/phone`);    
+});
+
+/*app.post('/reply-on/:replyID/:comID/:phoneID', (req,res)=>{
+    var replyID = req.params.replyID;
+    var comID = req.params.comID;
+    var phoneID = req.params.phoneID;
+    console.log('ovde si');
+
+    var name1 = req.body.replyOnName;
+    var comment1 = req.body.replyOnComment;
+    var Reply;
+
+    Phone.findById({"_id": phoneID, "comments._id": comID, "replies._id": replyID},(err,reply)=>{
+        Reply = {name: `@${reply.name}`, comment: comment1};
+        console.log(Reply);
+    });
+    
+    Phone.findOneAndUpdate(
+        {"_id": phoneID, "comments._id": comID},
+        {$push: {"comments.$.replies": Reply}}, 
+        (err,result)=>console.log(err));
+
+    res.redirect(`/${phoneID}/phone`);    
+});*/
 
 app.get('/admin/:password', (req,res)=>{
     const {password} = req.params

@@ -5,6 +5,118 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <style>
+        body{
+            background-color: silver;
+            margin-right: 2px;
+        }
+        .go-back{
+            border-radius: 30px;
+            background-color: black;
+            color: silver;
+            padding: 10px;
+            margin-top: 5px;
+            transition: 0.3s;
+        }
+        .go-back:hover{
+            background-color: #7B0100;
+        }
+        .row{
+            border-radius: 25px;
+            background: lightcoral;
+            padding: 10px;
+        }
+        h2{
+            margin-top: 50px;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .comment{
+            border-radius: 25px;
+            background: #7B0100 ;
+            padding: 15px; 
+            width: auto;
+            height: auto;
+        }
+
+        .comment-thread{
+            color: black;
+            border-radius: 25px;
+            background: #B8B8B8;
+            padding: 10px;
+            width: auto;
+            height: auto;
+            float: none;
+            display: flex;
+        }
+        .comment-heading{
+            color: black;
+            border-radius: 25px;
+            background: #B8B8B8;
+            padding: 10px;
+            width: auto;
+            height: auto;
+            
+        }
+        .likes{
+            float: left;
+            padding: 5px;
+        }
+        .dislikes{
+            float:left;
+            padding: 5px;
+        }
+        
+        .comment-body{
+            color: black;
+            border-radius: 25px;
+            background: #B8B8B8;
+            padding: 10px;
+            width: auto;
+            height: auto;
+            padding-right: 5px;
+        }
+        .reply-on{
+            width: 100%;
+        }
+        input[type=submit]{
+            background-color: silver;
+            border-radius: 40px;
+            padding: 10px;
+            border-color: #7B0100;
+            transition: 0.3s;
+        }
+        input[type=submit]:hover{
+            background-color: #7B0100;
+            color: silver;
+        }
+        .replies{
+            color: black;
+            border-radius: 25px;
+            background: #B8B8B8;
+            padding: 10px;
+            width: auto;
+            height: auto;
+        }
+
+        .reply{
+            color: silver;
+            border-radius: 25px;
+            background: #424242;
+            padding: 10px;
+            width: auto;
+            height: auto;
+        }
+        .add-comment{
+            background-color: #7B0100;
+            color: silver;
+            padding: 5px;
+            border-radius: 10px;
+            padding-bottom: 15px;
+            width: auto;
+            height: auto;
+        }
+
         .rejting{
             position: absolute;
             top: auto;
@@ -41,7 +153,7 @@
             position: absolute;
             display: block;
             font-size: 30px;
-            color: #1f9cff;
+            color: yellow;
             top: 0;
             opacity: 0;
             transition: .5s;
@@ -56,70 +168,76 @@
         .hidden{
             display: none; 
         }
+        .average{
+            color: #7B0100;
+        }
         </style>
     </head>
     <body>
 
-        <a href="/go-back"><=Go Back</a>
+        <a class="go-back" href="/go-back">Go Back</a>
 
         <h1><%=name%></h1>
 
         <p><%=paragraph%></p>
         <br>
-        <iframe width="560" height="315" src="<%=video%>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe width="460" height="315" src="<%=video%>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         <br>
 
         <h2>Specifikacije</h2>
         <div class="specs">
-            <div class="disp">
+            <div class="row">
                 <h3>Displej</h3>
-                <aside>
+                <div class = "col">
                     <ul>
                         <% for(spec in specs_display){ %>
                             <li><%=specs_display[spec]%></li>
                         <%}%>
                     </ul>
-                </aside>
+                </div>
             </div>
-            <div class="disp">
+
+            <div class="row">
                 <h3>Platforma</h3>
-                <aside>
+                <div class = "col">
                     <ul>
                         <% for(spec in specs_plat){ %>
                             <li><%=specs_plat[spec]%></li>
                         <%}%>
                     </ul>
-                </aside>
+                </div>
             </div>
-            <div class="disp">
+
+            <div class="row">
                 <h3>Memorija</h3>
-                <aside>
+                <div class = "col">
                     <ul>
                         <% for(spec in specs_mem){ %>
                             <li><%=specs_mem[spec]%></li>
                         <%}%>
                     </ul>
-                </aside>
+                </div>
             </div>
-            <div class="disp">
+            <div class="row">
                 <h3>Kamera</h3>
-                <aside>
+                <div class = "col">
                     <ul>
                         <% for(spec in specs_cam){ %>
                             <li><%=specs_cam[spec]%></li>
                         <%}%>
                     </ul>
-                </aside>
+                </div>
             </div>
-            <div class="disp">
+
+            <div class="row">
                 <h3>Baterija</h3>
-                <aside>
+                <div class = "col">
                     <ul>
                         <% for(spec in specs_battery){ %>
                             <li><%=specs_battery[spec]%></li>
                         <%}%>
                     </ul>
-                </aside>
+                </row>
             </div>
         </div>
 
@@ -127,51 +245,65 @@
 
         <div class="iskustva">
             <% for (c in comments) { %>
-                <div class="komentar">
-                    <h4>Ime</h4>
-                    <p><%=comments[c].name%></p>
-                    <h4>Komentar</h4>
-                    <p><%=comments[c].comment%></p>
-                    <h4>Ocena</h4>
-                    <p><%=comments[c].grade%></p>
-                    <h4>Broj Lajkova</h4>
-                    <p><%=comments[c].likes%></p>
-                    <h4>Broj dislajkova</h4>
-                    <p><%=comments[c].dislikes%></p>
-
-                    <td><form action="/like/<%=comments[c].id%>/<%=phoneID%>" method="post">
-                        <input type="submit" value="Like">
-                    </form></td>
-                    <td><form action="/dislike/<%=comments[c].id%>/<%=phoneID%>" method="post">
-                        <input type="submit" value="Dislike">
-                    </form></td>
-
-                    <div class="odgovori">
-                        <h4>Odgovor na komentar</h4>
+                <div class="comment">
+                    <div class="comment-thread">
+                        <div class="comment-heading">
+                            <h4>Ime</h4>
+                            <p><%=comments[c].name%></p>
+                            <div class="grade">
+                                <h4>Ocena</h4>
+                                <p><%=comments[c].grade%></p>
+                            </div>
+                            <div class="likes">
+                                <h4>Lajkovi</h4>
+                                <p><%=comments[c].likes%></p>
+                            </div>
+                            <div class="dislikes">
+                                <h4>Dislajkovi</h4>
+                                <p><%=comments[c].dislikes%></p>  
+                            </div>
+                        </div>
+    
+                        <div class="comment-body">
+                            <h4>Komentar</h4>
+                            <p><%=comments[c].comment%></p>
+                            
+                            <td><form action="/like/<%=comments[c].id%>/<%=phoneID%>" method="post">
+                                <input type="submit" value="Like">
+                            </form></td>
+                            <td><form action="/dislike/<%=comments[c].id%>/<%=phoneID%>" method="post">
+                                <input type="submit" value="Dislike">
+                            </form></td>
+    
+                            <form class="reply-on" action="/reply/<%=comments[c].id%>/<%=phoneID%>" method="post">
+                                <p>Ime</p>
+                                <input type = "text" name="replyName" required>
+                                <p>Komentar</p>
+                                <input type = "text" name="replyComment" required>
+                                <br>
+                                <input type="submit" value="Reply">
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <div class="replies">
+                        <h4>Odgovori na komentar</h4>
                         <%for(o in comments[c].replies){ %>
-                            <div class="odgovor">
+                            <div class="reply">
                                 <p>Ime</p>
                                 <p><%=comments[c].replies[o].name%></p>
                                 <p>Odgovor</p>
                                 <p><%=comments[c].replies[o].comment%></p>
                             </div>
                         <%}%>
-
-                        <form action="/reply/<%=comments[c].id%>/<%=phoneID%>" method="post">
-                            <p>Ime</p>
-                            <input type = "text" name="replyName" required>
-                            <p>Komentar</p>
-                            <input type = "text" name="replyComment" required>
-                            <br>
-                            <input type="submit" value="Reply">
-                        </form>
                     </div>
+
                 </div>
             <%} %>
         </div>
 
         <h3>Dodaj komentar</h3>
-        <form action="/new-comment/<%=phoneID%>" method="post">
+        <form class="add-comment" action="/new-comment/<%=phoneID%>" method="post">
             <p>Ime</p>
             <input type = "text" name="name" required>
             <p>Komentar</p>
@@ -194,7 +326,7 @@
             <br>
             <input type="submit">
         </form>
-        <h2>Prosecna ocena: <%=average%></h2>
+        <h2 class="average">Prosecna ocena: <%=average%></h2>
 
     </body>
 </html>

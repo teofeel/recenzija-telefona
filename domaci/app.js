@@ -101,7 +101,6 @@ app.post('/reply/:comID/:phoneID', (req,res)=>{
     var name1 = req.body.replyName;
     var comment1 = req.body.replyComment;
 
-    console.log('ovde si');
     var Reply = {name: name1, comment: comment1};
 
     Phone.findOneAndUpdate(
@@ -112,28 +111,6 @@ app.post('/reply/:comID/:phoneID', (req,res)=>{
     res.redirect(`/${phoneID}/phone`);    
 });
 
-/*app.post('/reply-on/:replyID/:comID/:phoneID', (req,res)=>{
-    var replyID = req.params.replyID;
-    var comID = req.params.comID;
-    var phoneID = req.params.phoneID;
-    console.log('ovde si');
-
-    var name1 = req.body.replyOnName;
-    var comment1 = req.body.replyOnComment;
-    var Reply;
-
-    Phone.findById({"_id": phoneID, "comments._id": comID, "replies._id": replyID},(err,reply)=>{
-        Reply = {name: `@${reply.name}`, comment: comment1};
-        console.log(Reply);
-    });
-    
-    Phone.findOneAndUpdate(
-        {"_id": phoneID, "comments._id": comID},
-        {$push: {"comments.$.replies": Reply}}, 
-        (err,result)=>console.log(err));
-
-    res.redirect(`/${phoneID}/phone`);    
-});*/
 
 app.get('/admin/:password', (req,res)=>{
     const {password} = req.params

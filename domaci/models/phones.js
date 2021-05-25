@@ -1,3 +1,4 @@
+const { Int32 } = require('bson');
 const express = require('express');
 const mongoose = require('mongoose');
 const CommentSchema = require('./comments');
@@ -16,6 +17,10 @@ const PhoneSchema = new Schema({
     video:{
         type:String,
         required: false
+    },
+    price:{
+        type:Number,
+        required:true
     },
     specs:{
         type: SpecSchema, //subdocument 

@@ -141,3 +141,66 @@
                 <%} %>
             </tbody>
         </table>
+
+
+        <script>
+            const button = document.getElementById('like');
+            
+            button.addEventListener('click', function(e) {
+            console.log('button was clicked');
+
+            fetch('/clicked', {method: 'POST'})
+                .then(function(response) {
+                    if(response.ok) {
+                        console.log('Click was recorded');
+                        return;
+                    }
+                    throw new Error('Request failed.');
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
+            });
+        </script>
+
+        <script>
+            function like(comID, phoneID){
+                fetch(`/like/${comID}/${phoneID}`, {method: 'POST'})
+                .then(function(response) {
+                    if(response.ok) {
+                        console.log(`Like for ${comID}`);
+                        return;
+                    }
+                throw new Error('Request failed.');
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
+                const like = document.getElementById(`like${comID}`);
+                var novibr = parseInt(like.innerHTML);
+                novibr++;
+                like.innerHTML = novibr.toString();
+            }
+            
+            function dislike(comID, phoneID){
+                fetch(`/dislike/${comID}/${phoneID}`, {method: 'POST'})
+                .then(function(response) {
+                    if(response.ok) {
+                        console.log('click was recorded');
+                        return;
+                    }
+                throw new Error('Request failed.');
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
+                const dislike = document.getElementById(`dislike${comID}`);
+                var novibr = parseInt(dislike.innerHTML);
+                novibr++;
+                dislike.innerHTML = novibr.toString();
+
+            }
+        </script>
+
+
+        action="/reply/<%=comments[c].id%>/<%=phoneID%>"

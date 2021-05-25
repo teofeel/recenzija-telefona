@@ -4,173 +4,187 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        <style>
-        body{
-            background-color: silver;
-            margin-right: 2px;
-        }
-        .go-back{
-            border-radius: 30px;
-            background-color: black;
-            color: silver;
-            padding: 10px;
-            margin-top: 5px;
-            transition: 0.3s;
-        }
-        .go-back:hover{
-            background-color: #7B0100;
-        }
-        .row{
-            border-radius: 25px;
-            background: lightcoral;
-            padding: 10px;
-        }
-        h2{
-            margin-top: 50px;
-            margin-bottom: 50px;
-            text-align: center;
-        }
-
-        .comment{
-            border-radius: 25px;
-            background: #7B0100 ;
-            padding: 15px; 
-            width: auto;
-            height: auto;
-        }
-
-        .comment-thread{
-            color: black;
-            border-radius: 25px;
-            background: #B8B8B8;
-            padding: 10px;
-            width: auto;
-            height: auto;
-            float: none;
-            display: flex;
-        }
-        .comment-heading{
-            color: black;
-            border-radius: 25px;
-            background: #B8B8B8;
-            padding: 10px;
-            width: auto;
-            height: auto;
-            
-        }
-        .likes{
-            float: left;
-            padding: 5px;
-        }
-        .dislikes{
-            float:left;
-            padding: 5px;
-        }
         
-        .comment-body{
-            color: black;
-            border-radius: 25px;
-            background: #B8B8B8;
-            padding: 10px;
-            width: auto;
-            height: auto;
-            padding-right: 5px;
-        }
-        .reply-on{
-            width: 100%;
-        }
-        input[type=submit]{
-            background-color: silver;
-            border-radius: 40px;
-            padding: 10px;
-            border-color: #7B0100;
-            transition: 0.3s;
-        }
-        input[type=submit]:hover{
-            background-color: #7B0100;
-            color: silver;
-        }
-        .replies{
-            color: black;
-            border-radius: 25px;
-            background: #B8B8B8;
-            padding: 10px;
-            width: auto;
-            height: auto;
-        }
+        <style>
+            body{
+                background-color: silver;
+                margin-right: 2px;
+            }
+            h1{
+                text-align: center;
+            }
+            .go-back{
+                border-radius: 30px;
+                background-color: black;
+                color: silver;
+                padding: 10px;
+                margin-top: 5px;
+                transition: 0.3s;
+            }
+            .go-back:hover{
+                background-color: #7B0100;
+            }
+            .row{
+                border-radius: 25px;
+                background: lightcoral;
+                padding: 10px;
+            }
+            h2{
+                margin-top: 50px;
+                margin-bottom: 50px;
+                text-align: center;
+            }
 
-        .reply{
-            color: silver;
-            border-radius: 25px;
-            background: #424242;
-            padding: 10px;
-            width: auto;
-            height: auto;
-        }
-        .add-comment{
-            background-color: #7B0100;
-            color: silver;
-            padding: 5px;
-            border-radius: 10px;
-            padding-bottom: 15px;
-            width: auto;
-            height: auto;
-        }
+            .comment{
+                border-radius: 25px;
+                background: #7B0100 ;
+                padding: 15px; 
+                width: auto;
+                height: auto;
+            }
 
-        .rejting{
-            position: absolute;
-            top: auto;
-            left: auto;
-            transform: translate(auto,auto);
-            transform: rotateY(180deg);
-            display: flex;
-            margin-bottom: 50px;
-        }
+            .comment-thread{
+                color: black;
+                border-radius: 25px;
+                background: #B8B8B8;
+                padding: 10px;
+                width: auto;
+                height: auto;
+                float: none;
+                display: flex;
+            }
+            .comment-heading{
+                color: black;
+                border-radius: 25px;
+                background: #B8B8B8;
+                padding: 10px;
+                width: auto;
+                height: auto;
+                
+            }
+            button{
+                background-color: silver;
+                border-radius: 40px;
+                padding: 10px;
+                border-color: #7B0100;
+                transition: 0.3s;
+            }
+            button:hover{
+                background-color: #7B0100;
+                color: silver;
+            }
+            .likes{
+                float: left;
+                padding: 5px;
+            }
+            .dislikes{
+                float:left;
+                padding: 5px;
+            }
+            .comment-body{
+                color: black;
+                border-radius: 25px;
+                background: #B8B8B8;
+                padding: 10px;
+                width: auto;
+                height: auto;
+                padding-right: 5px;
+            }
+            .reply-on{
+                width: 100%;
+            }
+            input[type=submit]{
+                background-color: silver;
+                border-radius: 40px;
+                padding: 10px;
+                border-color: #7B0100;
+                transition: 0.3s;
+            }
+            input[type=submit]:hover{
+                background-color: #7B0100;
+                color: silver;
+            }
+            .replies{
+                color: black;
+                border-radius: 25px;
+                background: #B8B8B8;
+                padding: 10px;
+                width: auto;
+                height: auto;
+            }
 
-        .rejting input{
-            display: none;
-        }
+            .reply{
+                color: silver;
+                border-radius: 25px;
+                background: #424242;
+                padding: 10px;
+                width: auto;
+                height: auto;
+            }
+            .add-comment{
+                background-color: #7B0100;
+                color: silver;
+                padding: 5px;
+                border-radius: 10px;
+                padding-bottom: 15px;
+                width: auto;
+                height: auto;
+            }
 
-        .rejting label{
-            display: block;
-            cursor: pointer;
-            width: 50px;
-            /*background: #ccc;*/
-        }
+            .rejting{
+                position: absolute;
+                top: auto;
+                left: auto;
+                transform: translate(auto,auto);
+                transform: rotateY(180deg);
+                display: flex;
+                margin-bottom: 50px;
+            }
 
-        .rejting label:before{
-            content: '\f005';
-            font-family: fontAwesome;
-            position: relative;
-            display: block;
-            font-size: 30px;
-            color: #101010;
-        }
+            .rejting input{
+                display: none;
+            }
 
-        .rejting label:after{
-            content: '\f005';
-            font-family: fontAwesome;
-            position: absolute;
-            display: block;
-            font-size: 30px;
-            color: yellow;
-            top: 0;
-            opacity: 0;
-            transition: .5s;
-            text-shadow: 0 2px 5px rgba(0,0,0,.5);
-        }
-        .rejting label:hover:after,
-        .rejting label:hover ~ label:after,
-        .rejting input:checked ~ label:after{
-            opacity: 1;
-        }
+            .rejting label{
+                display: block;
+                cursor: pointer;
+                width: 50px;
+                /*background: #ccc;*/
+            }
 
-        .hidden{
-            display: none; 
-        }
-        .average{
-            color: #7B0100;
-        }
+            .rejting label:before{
+                content: '\f005';
+                font-family: fontAwesome;
+                position: relative;
+                display: block;
+                font-size: 30px;
+                color: #101010;
+            }
+
+            .rejting label:after{
+                content: '\f005';
+                font-family: fontAwesome;
+                position: absolute;
+                display: block;
+                font-size: 30px;
+                color: yellow;
+                top: 0;
+                opacity: 0;
+                transition: .5s;
+                text-shadow: 0 2px 5px rgba(0,0,0,.5);
+            }
+            .rejting label:hover:after,
+            .rejting label:hover ~ label:after,
+            .rejting input:checked ~ label:after{
+                opacity: 1;
+            }
+
+            .hidden{
+                display: none; 
+            }
+            .average{
+                color: #7B0100;
+            }
         </style>
     </head>
     <body>
@@ -184,7 +198,10 @@
         <iframe width="460" height="315" src="<%=video%>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         <br>
 
+        <h3 class="cena">Cena: <%=cena%></h3>
+
         <h2>Specifikacije</h2>
+
         <div class="specs">
             <div class="row">
                 <h3>Displej</h3>
@@ -218,6 +235,7 @@
                     </ul>
                 </div>
             </div>
+
             <div class="row">
                 <h3>Kamera</h3>
                 <div class = "col">
@@ -239,6 +257,8 @@
                     </ul>
                 </row>
             </div>
+
+        </div>
         </div>
 
         <h2>Komentari</h2>
@@ -256,11 +276,11 @@
                             </div>
                             <div class="likes">
                                 <h4>Lajkovi</h4>
-                                <p><%=comments[c].likes%></p>
+                                <p id="like<%=comments[c].id%>"><%=comments[c].likes%></p>
                             </div>
                             <div class="dislikes">
                                 <h4>Dislajkovi</h4>
-                                <p><%=comments[c].dislikes%></p>  
+                                <p id="dislike<%=comments[c].id%>"><%=comments[c].dislikes%></p>  
                             </div>
                         </div>
     
@@ -268,14 +288,10 @@
                             <h4>Komentar</h4>
                             <p><%=comments[c].comment%></p>
                             
-                            <td><form action="/like/<%=comments[c].id%>/<%=phoneID%>" method="post">
-                                <input type="submit" value="Like">
-                            </form></td>
-                            <td><form action="/dislike/<%=comments[c].id%>/<%=phoneID%>" method="post">
-                                <input type="submit" value="Dislike">
-                            </form></td>
+                            <button onclick="like('<%=comments[c].id%>','<%=phoneID%>')">Like</button>
+                            <button onclick="dislike('<%=comments[c].id%>','<%=phoneID%>')">dislike</button>
     
-                            <form class="reply-on" action="/reply/<%=comments[c].id%>/<%=phoneID%>" method="post">
+                            <form class="reply-on" action="/reply/<%=comments[c].id%>/<%=phoneID%>"method="post">
                                 <p>Ime</p>
                                 <input type = "text" name="replyName" required>
                                 <p>Komentar</p>
@@ -311,7 +327,7 @@
             <p>Ocena</p>
 
             <div  class="rejting">
-                <input type="radio" name="star" value=5 id="star1"><label for="star1">
+                <input type="radio" name="star" value=5 id="star1" required><label for="star1">
                 </label>
                 <input type="radio" name="star" value=4 id="star2"><label for="star2">
                 </label>
@@ -327,6 +343,44 @@
             <input type="submit">
         </form>
         <h2 class="average">Prosecna ocena: <%=average%></h2>
+
+        <script> 
+        function like(comID, phoneID){
+            fetch(`/like/${comID}/${phoneID}`, {method: 'POST'})
+            .then(function(response) {
+                if(response.ok) {
+                    const like = document.getElementById(`like${comID}`);
+                    var novibr = parseInt(like.innerHTML);
+                    novibr++;
+                    like.innerHTML = novibr.toString();
+                    return;
+                }
+            throw new Error('Request failed.');
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
+            
+        }
+        
+        function dislike(comID, phoneID){
+            fetch(`/dislike/${comID}/${phoneID}`, {method: 'POST'})
+            .then(function(response) {
+                if(response.ok) {
+                    const dislike = document.getElementById(`dislike${comID}`);
+                    var novibr = parseInt(dislike.innerHTML);
+                    novibr++;
+                    dislike.innerHTML = novibr.toString();
+                    return;
+                }
+            throw new Error('Request failed.');
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
+            
+        
+        }</script>
 
     </body>
 </html>

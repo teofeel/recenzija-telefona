@@ -42,10 +42,20 @@ app.get(`/:id/phone`, (req,res)=>{
         let br=0;
 
         let commentss = phone.comments;
-        let averagee = commentss.reduce((total,next)=>total+next.grade, 0)/commentss.length;
-        res.render('phone',{phoneID:id, name: phone.name, paragraph: phone.review, specs_display: specs_d, specs_plat:specs_p, specs_mem:specs_m, specs_cam:specs_k, specs_battery:specs_b, comments:commentss, average:averagee, video: phone.video}); //upisivanje podataka u phone.ejs template
+        //let averagee = commentss.reduce((total,next)=> total + next.grade, 0)/commentss.length;
+
+        /*for(i in commentss){
+            if(commentss[i].grade == undefined){
+                continue;
+            }
+            br+=commentss[i].grade;
+        }*/
+
+        let averagee=(commentss.reduce((total,next)=>total+next.grade, 0)/commentss.length).toFixed(2);
+
+        res.render('phone',{phoneID:id, name: phone.name, paragraph: phone.review, cena: phone.price, specs_display: specs_d, specs_plat:specs_p, specs_mem:specs_m, specs_cam:specs_k, specs_battery:specs_b, comments:commentss, average:averagee, video: phone.video}); //upisivanje podataka u phone.ejs template
     })
-    .then((result)=>console.log(result))
+    //.then((result)=>console.log(result))
     .catch((err)=>console.log(err));
 });
 
@@ -124,6 +134,7 @@ app.post('/new-phone',(req,res)=>{
     var name1 = req.body.name;
     var review1 = req.body.review;
     var video1 = req.body.video;
+    var cena1 = req.body.cena;
     var d = req.body.displej;
     var p = req.body.platforma;
     var m = req.body.memorija;
@@ -140,6 +151,7 @@ app.post('/new-phone',(req,res)=>{
         name: name1, 
         review: review1, 
         video: video1,
+        price: cena1,
         specs:{
             displej: displej1,
             platforma: platforma1,
